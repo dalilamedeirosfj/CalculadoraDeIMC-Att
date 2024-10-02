@@ -1,0 +1,35 @@
+name: C/C++ Build and Test
+
+# Evento que dispara a ação (push ou pull request)
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Definição dos jobs
+jobs:
+  build:
+
+    #  Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+   
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    #  GCC
+    - name: Install dependencies
+      run: sudo apt-get install gcc make
+
+    #  Compilar 
+    - name: Compile the code
+      run: |
+        gcc -o calculadora src/calculadora.c src/teste.c
+
+    # Rodar
+    - name: Run tests
+      run: ./calculadora
