@@ -1,6 +1,5 @@
-name: C/C++ Build and Test
+name: Integração Contínua com Minunit
 
-# Evento que dispara a ação (push ou pull request)
 on:
   push:
     branches:
@@ -9,27 +8,23 @@ on:
     branches:
       - main
 
-# Definição dos jobs
 jobs:
   build:
-
-    #  Ubuntu
     runs-on: ubuntu-latest
 
     steps:
-   
+    # Fazer o checkout the code
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
-    #  GCC
-    - name: Install dependencies
-      run: sudo apt-get install gcc make
+    # Preparar o ambiente para rodar aplicações em C
+    - name: Install build essentials
+      run: sudo apt-get install build-essential
 
-    #  Compilar 
-    - name: Compile the code
-      run: |
-        gcc -o calculadorah calculadoraimc-att/src/calculadora.c calculadoraimc-att/test/teste.c
+    # Compilar o projeto
+    - name: Build the project
+      run: gcc -o unitario calculadoraimc-att/test/teste.c
 
-    # Rodar
-    - name: Run tests
-      run: ./calculadora
+    # Executar o teste
+    - name: Run unit tests
+      run: ./unitario
