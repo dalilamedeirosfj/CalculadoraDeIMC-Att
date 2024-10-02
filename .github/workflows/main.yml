@@ -13,13 +13,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Fazer o checkout the code
+    # Fazer o checkout do código
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     # Preparar o ambiente para rodar aplicações em C
     - name: Install build essentials
-      run: sudo apt-get install build-essential
+      run: |
+        sudo apt-get update
+        sudo apt-get install build-essential
 
     # Compilar o projeto
     - name: Build the project
